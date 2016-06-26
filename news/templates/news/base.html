@@ -64,6 +64,8 @@
                 <li>
                     <a href="#">Contact</a>
                 </li>
+
+                
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -178,6 +180,19 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+
+
+$("#updateForm").bind("submit", function(){
+    $.post(ajax_url, {r: $(this).find('[name="r"]').val()}, function(data){
+        // nothing here for now, but this is where you could update the UI, etc.
+    });
+    return false;
+});
+
+
+
+
     </script>
 
 </body>
