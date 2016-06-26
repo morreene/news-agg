@@ -4,20 +4,14 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <h1>News Feeds</h1>
-  </div>
-</div>
-
-<div class="container">
-  <!-- Example row of columns -->
-    <form method="post">
+    <h1>Add a New Feed</h1>
+        <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Save</button>
       <hr>
     </form>
-  <footer>
-    <p>&copy; 2015 Company, Inc.</p>
-  </footer>
-</div> <!-- /container -->
+  </div>
+</div>
+
 {% endblock %}

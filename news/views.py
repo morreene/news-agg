@@ -4,19 +4,34 @@ from .forms import FeedForm
 from django.shortcuts import redirect
 import feedparser
 import datetime
+import newspaper
+# from newspaper 
+# from readability.readability import Document
+# import urllib
+
+
+
 
 # Create your views here.
 
 def articles_list(request):
 	articles = Article.objects.all()
 
-	rows = [articles[x:x+1] for x in range(0,len(articles), 1)]
+	# rows = [articles[x:x+1] for x in range(0,len(articles), 1)]
+	# return render(request, 'news/articles_list.html', {'rows':rows})
 
-	return render(request, 'news/articles_list.html', {'rows':rows})
+	return render(request, 'news/articles_list.html', {'articles':articles})
+
 
 def feeds_list(request):
 	feeds = Feed.objects.all()
 	return render(request, 'news/feeds_list.html', {'feeds':feeds})
+
+def full_article(url):
+	html = urllib.urlopen(url).read()
+	readable_article = Document(html).summary()
+	# readable_title = Document(html).short_title()
+	return readable_article
 
 def new_feed(request):
 	if request.method=="POST":
@@ -36,6 +51,15 @@ def new_feed(request):
 					article.title = entry.title
 					article.url = entry.link
 					article.description = entry.description
+					# article.full = full_article(entry.link)
+
+					a = newspaper.Article(entry.link, language='en') 
+					a.download()
+					a.parse()
+					a.nlp()
+					article.keyword = a.keywords
+					article.full = a.text
+
 
 					d = datetime.datetime(*(entry.published_parsed[0:6]) )
 					dateString = d.strftime('%Y-%m-%d %H:%M:%S')

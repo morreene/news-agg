@@ -17,6 +17,8 @@ class Article(models.Model):
 	title = models.CharField(max_length=200)
 	url = models.URLField()
 	description = models.TextField()
+	keyword = models.TextField()
+	full = models.TextField()
 	publication_date = models.DateTimeField()
 
 	def __str__(self):
