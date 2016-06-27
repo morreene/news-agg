@@ -5,21 +5,30 @@ from django.shortcuts import redirect
 import feedparser
 import datetime
 import newspaper
-# from newspaper 
 # from readability.readability import Document
 # import urllib
 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
 
 def articles_list(request):
-	articles = Article.objects.all()
-
+	articles_l = Article.objects.all().order_by("-publication_date")
+	paginator = Paginator(articles_l, 10) # Show 25 contacts per page
 	# rows = [articles[x:x+1] for x in range(0,len(articles), 1)]
 	# return render(request, 'news/articles_list.html', {'rows':rows})
 
+	page = request.GET.get('page')
+	try:
+		articles = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		articles = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		articles = paginator.page(paginator.num_pages)
 	return render(request, 'news/articles_list.html', {'articles':articles})
 
 

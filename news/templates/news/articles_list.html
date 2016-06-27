@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
-{% load pagination_tags %}
+{% load bootstrap_pagination %}
+
 {% block content %}
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -14,7 +15,6 @@
     {% endfor %}
   </ul>
  -->
-{% autopaginate articles 10 %}
 
 {% for article in articles %}
 
@@ -72,52 +72,9 @@
 </div>
 
 {% endfor %}
-{% paginate %}
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-
-
-
-
-
-<ul class="pagination">
-  <li>
-    {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}">
-        prev
-      </a>
-    {% else %}
-      <span>prev</span>
-    {% endif %}
-  </li>
-
-  {% for page_number in paginator.page_range %}
-    {% if page_number = page_obj.number %}
-      <li class="active">
-        <span>{{ page_number }}</span>
-      </li>
-    {% else %}
-      <li>
-        <a href="?page={{ page_number }}">
-          {{ page_number }}
-        </a>
-      </li>
-    {% endif %}
-  {% endfor %}
-
-
-  <li>
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">
-        next
-      </a>
-    {% else %}
-      <span>next</span>
-    {% endif %}
-  </li>
-</ul>
-
-
-<!--</div> --> <!-- /container -->
+<div class="pagination-row text-right">
+    {% bootstrap_paginate articles range=5 %}
+</div>
 
 {% endblock %}

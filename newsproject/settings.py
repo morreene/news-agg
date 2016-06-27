@@ -42,31 +42,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pagination',
+    'bootstrap_pagination',
     'news',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.media",
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    "django.core.context_processors.request",
-    "django.core.context_processors.i18n",
-    "django.contrib.messages.context_processors.messages",
-    "planet.context_processors.context"
-)
 
 
-
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     "django.core.context_processors.auth",
-#     "django.core.context_processors.debug",
-#     "django.core.context_processors.i18n",
-#     "django.core.context_processors.media",
-#     "django.core.context_processors.request"
-# )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,7 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'pagination.middleware.PaginationMiddleware',
+    # 'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'newsproject.urls'
@@ -94,7 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # "django.core.context_processors.request",
             ],
+            'debug': DEBUG,
         },
     },
 ]

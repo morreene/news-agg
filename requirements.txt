@@ -1,4 +1,4 @@
 django
 newspaper
 feedparser
-django-pagination-py3
+django-bootstrap-pagination
