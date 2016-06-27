@@ -1,1 +1,4 @@
-rake
+django
+newspaper
+feedparser
+django-pagination-py3
