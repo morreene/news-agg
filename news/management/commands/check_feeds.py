@@ -43,7 +43,7 @@ class Command(BaseCommand):
 
                     article = Article()
                     article.title = entry.title
-                    # article.url = entry.link
+                    article.url = entry.link
                     article.description = entry.description
                     # article.full = full_article(entry.link)
 
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     a.nlp()
                     article.keyword = a.keywords
                     article.full = a.text
-                    article.title = a.title
+                    #article.title = a.title
 
 
                     d = datetime.datetime(*(entry.published_parsed[0:6]) )
