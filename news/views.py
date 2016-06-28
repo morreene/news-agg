@@ -50,7 +50,7 @@ def new_feed(request):
 			feed = form.save(commit=False)
 
 			exitingFeed = Feed.objects.filter(url = feed.url)
-			if len(exitingFeed) ==0:
+			if len(exitingFeed) == 0:
 				feedData = feedparser.parse(feed.url)
 				# set same fields
 				feed.title = feedData.feed.title
@@ -69,7 +69,6 @@ def new_feed(request):
 					a.nlp()
 					article.keyword = a.keywords
 					article.full = a.text
-
 
 					d = datetime.datetime(*(entry.published_parsed[0:6]) )
 					dateString = d.strftime('%Y-%m-%d %H:%M:%S')

@@ -41,27 +41,32 @@ class Command(BaseCommand):
 
                 for entry in feedData.entries:
 
-                    article = Article()
-                    article.title = entry.title
-                    article.url = entry.link
-                    article.description = entry.description
-                    # article.full = full_article(entry.link)
+                    exitingEntry = Article.objects.filter(url = entry.link)
+                    if len(exitingEntry) == 0:
 
-                    a = newspaper.Article(entry.link, language='en') 
-                    a.download()
-                    a.parse()
-                    a.nlp()
-                    article.keyword = a.keywords
-                    article.full = a.text
-                    #article.title = a.title
+                        article = Article()
+                        article.title = entry.title
+                        article.url = entry.link
+                        article.description = entry.description
+                        # article.full = full_article(entry.link)
+
+                        a = newspaper.Article(entry.link, language='en') 
+                        a.download()
+                        a.parse()
+                        a.nlp()
+                        article.keyword = a.keywords
+                        article.full = a.text
+                        #article.title = a.title
 
 
-                    d = datetime.datetime(*(entry.published_parsed[0:6]) )
-                    dateString = d.strftime('%Y-%m-%d %H:%M:%S')
+                        d = datetime.datetime(*(entry.published_parsed[0:6]) )
+                        dateString = d.strftime('%Y-%m-%d %H:%M:%S')
 
-                    article.publication_date = dateString
-                    article.feed = feed
-                    article.save()
+                        article.publication_date = dateString
+                        article.feed = feed
+                        article.save()
+                    else:
+                        print("This article has already downloaded.")
 
 
 
